@@ -1,0 +1,17 @@
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# --- Heavy data / model artifacts (re-downloadable or re-trainable) ---
+repo/data/
+repo/runs/
+app/state/
+app/logs/
+embeddings/
+
+# --- OS junk ---
+Thumbs.db
+.DS_Store

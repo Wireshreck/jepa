@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jepa — 109M text JEPA · Platonic Representations</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>">
+<link rel="stylesheet" href="/static/styles.css?v=2">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">⬡</span> <b>jepa</b><span class="sub">109M text JEPA · one rotation · Platonic Representations</span></div>
+  <nav id="tabs">
+    <button data-tab="home" class="active">Home</button>
+    <button data-tab="photos">Find photos</button>
+    <button data-tab="captions">Neighbours</button>
+    <button data-tab="bench">Benchmarks</button>
+    <button data-tab="train">Training</button>
+    <button data-tab="about">About</button>
+  </nav>
+</header>
+<main>
+  <!-- HOME -->
+  <section id="tab-home">
+    <div class="hero">
+      <h1>Two JEPAs that never saw a pair learn the same world, up to one rotation.</h1>
+      <p>This machine serves the <b>109M-parameter text JEPA</b> of <i>“Proving and Improving the Platonic
+      Representation Hypothesis with JEPAs”</i> (Balestriero &amp; LeCun, 2026) — the architecture whose headline
+      result is beating Qwen2.5-72B and Llama-3-70B on cross-modal alignment. Official checkpoints are restricted,
+      so this install trained the exact architecture <b>locally, on this computer</b>, with the paper’s own code
+      (good views + LeJEPA). Everything runs on your CPU.</p>
+      <div id="pills" class="pills"></div>
+    </div>
+    <div class="try">
+      <h2>Try it</h2>
+      <div class="box">
+        <input id="home-query" placeholder="a dog catching a frisbee on the beach…" autocomplete="off">
+        <button id="home-go" class="primary">Search photos</button>
+        <button id="home-go-caps">Nearest captions</button>
+      </div>
+      <div id="home-results"></div>
+    </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section id="tab-photos" hidden>
+    <h2>Find photos by description</h2>
+    <p class="dim">Your description goes through the text JEPA, then through the one fitted rotation, and lands
+    next to photos that the frozen <b>DINOv2</b> (a vision model trained with no captions at all) had embedded.
+    No network here was ever trained on an image–caption pair; the pairs only fit the rotation.</p>
+    <div class="box">
+      <input id="photo-query" placeholder="fresh bread in a bakery window" autocomplete="off">
+      <button id="photo-go" class="primary">Find it</button>
+    </div>
+    <div id="photo-status" class="dim"></div>
+    <div id="photo-grid" class="grid"></div>
+  </section>
+
+  <!-- CAPTIONS -->
+  <section id="tab-captions" hidden>
+    <h2>The model’s neighbourhood</h2>
+    <p class="dim">Enter text; the model embeds it into its 768-dim world space and shows the nearest captions
+    of the COCO test set (in its own space) or photos (through the rotation). A trained JEPA puts
+    <i>two captions of one scene</i> together — the good views it grew up on.</p>
+    <div class="box">
+      <input id="cap-query" autocomplete="off" placeholder="a cat sleeping on a laptop keyboard">
+      <button id="cap-go" class="primary">Embed &amp; list</button>
+    </div>
+    <div id="cap-vec" class="dim mono"></div>
+    <div id="cap-list" class="list"></div>
+  </section>
+
+  <!-- BENCHMARKS -->
+  <section id="tab-bench" hidden>
+    <h2>Alignment benchmarks</h2>
+    <p class="dim">Measured on this machine with the repository’s own protocol, next to the paper’s reported
+    numbers. <b>Compare honestly:</b> the paper’s flagship encoder saw <i>~900 million captions</i> on 16 GPUs;
+    this local one has been training on a tiny slice of that compute.</p>
+    <div id="bench-wrap"></div>
+  </section>
+
+  <!-- TRAIN -->
+  <section id="tab-train" hidden>
+    <h2>Training the local 109M JEPA</h2>
+    <div class="trainbar">
+      <div><div id="tr-step" class="big">—</div><div class="dim">optimizer steps</div></div>
+      <div><div id="tr-epoch" class="big">—</div><div class="dim">epoch / target</div></div>
+      <div><div id="tr-ckpt" class="dim mono" style="flex:1">—</div></div>
+    </div>
+    <div class="pills" id="tr-pills"></div>
+    <div class="btnrow">
+      <button id="tr-start" class="primary">Start / resume</button>
+      <button id="tr-stop">Stop</button>
+      <button id="tr-refresh">Refresh</button>
+    </div>
+    <h3>Training log (tail)</h3>
+    <pre id="tr-log" class="mono box">—</pre>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="tab-about" hidden>
+    <div id="about-content"></div>
+  </section>
+</main>
+<footer>
+  <span>jepa 1.0 · local install of <a href="https://arxiv.org/abs/2610.39302" target="_blank">arXiv:2610.39302</a> ·
+  code <a href="https://github.com/galilai-group/prh-proof" target="_blank">galilai-group/prh-proof</a> ·
+  server on port <span id="port-hint">7860</span></span>
+</footer>
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>

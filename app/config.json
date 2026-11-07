@@ -1,0 +1,34 @@
+{
+  "name": "jepa-109m",
+  "paper": "Balestriero & LeCun 2026, 'Proving and Improving the Platonic Representation Hypothesis with JEPAs' (arXiv:2610.39302)",
+  "repo": "https://github.com/galilai-group/prh-proof",
+  "arch": "base",
+  "width": 768,
+  "layers": 12,
+  "heads": 12,
+  "params": 108891648,
+  "tokeniser": "bert-base-uncased",
+  "objective": "lejepa-good-views",
+  "views": [2, 1],
+  "lamb": 0.16,
+  "lr": "1e-4",
+  "batch_size": 16,
+  "max_len": 32,
+  "epochs": 50,
+  "epoch_size": 4096,
+  "val_every": 2,
+  "workers": 0,
+  "seed": 0,
+  "train_data": "flickr+coco",
+  "port": 7860,
+  "data_dirs": {
+    "flickr30k": "data/flickr30k",
+    "coco-captions": "data/coco_train.parquet",
+    "coco5k": "data/coco5k"
+  },
+  "notes": {
+    "compute": "This machine is CPU-only (i5-11400F), so the local training budget is a scaled-down version of the paper's flagship run (--arch base = the 109M model; official checkpoints are private). The paper's run: --batch-size 128 x 16 GPUs, epoch-size 10,000,000, data recaptext:4627 (940M images' texts), 900M samples reached WIT-1024 alignment .184, above Qwen2.5-72B (.154) and Llama-3-70B (.151).",
+    "sigreg": "The repo's serializer computes SIGReg per process; the paper's docs say its effective weight is proportional to the batch. The flagship's 0.02 x 128 (= 2.56) maps to 0.16 on this batch size of 16.",
+    "views": "--views 2 1 keeps each sample at 3 sequences of <=32 tokens (measured ~3.9 s/step on this CPU; the repo's LeJEPA needs at least one local view, hence 2 1 and not 2 0)."
+  }
+}
